@@ -9,9 +9,7 @@ class PublishController extends Controller
 			$connection=Yii::app()->db;
 			$sql="select title,body from nb_software where id=".$id.";";
 			$result=$connection->createCommand($sql)->query();
-			//echo $result;
-			//echo $result;
-			while($port=mysql_fetch_array($result))
+			while(($port=$result->read())!==false)
 		{
 			$name[]=$port['title'];
 			$content[]=$port['body'];
