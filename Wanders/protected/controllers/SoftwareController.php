@@ -30,13 +30,10 @@ class SoftwareController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$connection=mysql_connect('localhost','root','624386547');
-		mysql_select_db('yii',$connection);
-		$sql="select title from nb_software;";
-		$result=mysql_query($sql);
-		//echo $result;
-		//echo $result;
-		while($port=mysql_fetch_array($result))
+		$connection=Yii::app()->db;
+		$sql='select title from nb_software';
+		$result=$connection->createCommand($sql)->query();
+		while(($port=$result->read())!==false)
 		{
 			$name[]=$port['title'];
 		}
