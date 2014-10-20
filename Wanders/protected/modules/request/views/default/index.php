@@ -33,7 +33,7 @@ $this->breadcrumbs=array(
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'kind'); ?>
-		<?php echo $form->textField($model,'kind',array('id'=>'kind','onFocus'=>'setter()','onBlur'=>'getter()')); ?>
+		<?php echo $form->textField($model,'kind',array('onFocus'=>'setter()','onBlur'=>'getter()')); ?>
 		<div id="kindLabel"></div>
 		<?php echo $form->error($model,'kind'); ?>
 	</div>
@@ -85,11 +85,11 @@ function getter()
 }
 function phpSet()
 {
-	document.getElementById('kind').value +='php ';
+	document.getElementById('RequestForm_kind').value +='php ';
 }
 function androidSet()
 {
-	document.getElementById('kind').value +='android ';
+	document.getElementById('RequestForm_kind').value +='android ';
 }
 </script>
 </body>

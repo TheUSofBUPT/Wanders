@@ -30,7 +30,17 @@ class SoftwareController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+		$connection=mysql_connect('localhost','root','624386547');
+		mysql_select_db('yii',$connection);
+		$sql="select title from nb_software;";
+		$result=mysql_query($sql);
+		//echo $result;
+		//echo $result;
+		while($port=mysql_fetch_array($result))
+		{
+			$name[]=$port['title'];
+		}
+		$this->render('index',array('name'=>$name));
 	}
     public function actionError()
 	{

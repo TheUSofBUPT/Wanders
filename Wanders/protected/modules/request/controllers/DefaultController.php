@@ -25,7 +25,7 @@ class DefaultController extends Controller
 			if($model->validate())
 			{
 				$connection=Yii::app()->db;
-				$sql="insert into nb_projects(title,kind,starttime,deadline,body) values('".$model->title."','".$model->kind."','".$model->starttime."','".$model->deadline."','".$model->body."')";
+				$sql="insert into nb_software(title,kind,starttime,deadline,body) values('".$model->title."','".$model->kind."','".$model->starttime."','".$model->deadline."','".$model->body."')";
                 $command=$connection->createCommand($sql);
 				$rowCount=$command->execute();
 				if($rowCount>0)
