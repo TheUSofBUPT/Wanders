@@ -127,7 +127,23 @@ class userForm extends CFormModel
 				$this->addError('password','用户名或密码错误');
 		}
 	}
+ 	
+	public function hasUserInlib($libname,$username)
+	{
+		$con = Yii::app()->db;
+		
+		$sqlcmd = "select * from ".$libname." where username = '".$username."'";
+		
+		$res = $con -> createCommand($sqlcmd)-> queryAll();
+		
+		if($res)
+		{
+			return true;
+		}
+		return false;
 
+	}
+ 
 
 	
 	public function hirerRegister()
