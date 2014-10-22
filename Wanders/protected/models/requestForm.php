@@ -11,9 +11,8 @@ class RequestForm extends CFormModel
 	public $kind;
 	public $starttime;
 	public $deadline;
-	public $body;
+	public $content;
 	public $verifyCode;
-
 	/**
 	 * Declares the validation rules.
 	 */
@@ -21,7 +20,7 @@ class RequestForm extends CFormModel
 	{
 		return array(
 			// title kind deadline and body are required
-			array('title, kind, starttime, deadline, body', 'required'),
+			array('title, kind, starttime, deadline, content', 'required'),
 			// verifyCode needs to be entered correctly
 			array('title','authenticate'),
 		);
@@ -39,7 +38,7 @@ class RequestForm extends CFormModel
 			'kind' => '类型',
 			'starttime'=>'开始日期',
 			'deadline' => '项目完成期限',
-			'body' => '内容',
+			'content' => '内容',
 			'verifyCode'=>'验证码',
 		);
 	}

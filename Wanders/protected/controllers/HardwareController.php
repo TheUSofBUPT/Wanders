@@ -30,7 +30,37 @@ class HardwareController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
+		if(isset($_POST['RequestForm']))
+		{
+			$model=new RequestForm;
+			$model->attributes=$_POST['RequestForm'];
+			if($model->validate())
+			{
+					$connection=Yii::app()->db;
+					$sql="insert into nb_hardware(title,kind,starttime,deadline,content) values('".$model->title."','".$model->kind."','".$model->starttime."','".$model->deadline."','".$model->content."')";
+                	$command=$connection->createCommand($sql);
+					$rowCount=$command->execute();
+					if($rowCount>0)
+					{
+						Yii::app()->createUrl('search');
+					}
+			}
+		}
+		$con=Yii::app()->db;
+		$sql="select title,id,regtime from nb_hardware;";
+		$result=$con->createCommand($sql)->query();
+		//echo $result;
+		//echo $result;
+		while($port=$result->read())
+		{
+			$name[]=$port['title'];
+			$id[]=$port['id'];
+			$time[]=$port['regtime'];
+		}
+		if(!isset($name))
 		$this->render('index');
+		else
+		$this->render('index',array('name'=>$name,'id'=>$id,'time'=>$time));
 	}
     public function actionError()
 	{

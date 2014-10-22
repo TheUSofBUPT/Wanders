@@ -28,16 +28,37 @@ class SoftwareController extends Controller
 	 */
 	public function actionIndex()
 	{
-		// renders the view file 'protected/views/site/index.php'
-		// using the default layout 'protected/views/layouts/main.php'
-		$connection=Yii::app()->db;
-		$sql='select title from nb_software';
-		$result=$connection->createCommand($sql)->query();
-		while(($port=$result->read())!==false)
+		if(isset($_POST['RequestForm']))
+		{
+			$model=new RequestForm;
+			$model->attributes=$_POST['RequestForm'];
+			if($model->validate())
+			{
+					$connection=Yii::app()->db;
+					$sql="insert into nb_software(title,kind,starttime,deadline,content) values('".$model->title."','".$model->kind."','".$model->starttime."','".$model->deadline."','".$model->content."')";
+                	$command=$connection->createCommand($sql);
+					$rowCount=$command->execute();
+					if($rowCount>0)
+					{
+						Yii::app()->createUrl('search');
+					}
+			}
+		}
+		$con=Yii::app()->db;
+		$sql="select title,id,regtime from nb_software;";
+		$result=$con->createCommand($sql)->query();
+		//echo $result;
+		//echo $result;
+		while($port=$result->read())
 		{
 			$name[]=$port['title'];
+			$id[]=$port['id'];
+			$time[]=$port['regtime'];
 		}
-		$this->render('index',array('name'=>$name));
+		if(!isset($name))
+		$this->render('index');
+		else
+		$this->render('index',array('name'=>$name,'id'=>$id,'time'=>$time));
 	}
     public function actionError()
 	{

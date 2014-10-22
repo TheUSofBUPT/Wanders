@@ -19,21 +19,7 @@ class DefaultController extends Controller
 	public function actionIndex()
 	{
 		$model=new RequestForm;
-		if(isset($_POST['RequestForm']))
-		{
-			$model->attributes=$_POST['RequestForm'];
-			if($model->validate())
-			{
-				$connection=Yii::app()->db;
-				$sql="insert into nb_software(title,kind,starttime,deadline,body) values('".$model->title."','".$model->kind."','".$model->starttime."','".$model->deadline."','".$model->body."')";
-                $command=$connection->createCommand($sql);
-				$rowCount=$command->execute();
-				if($rowCount>0)
-				{
-					Yii::app()->createUrl('search');
-				}
-			}
-		}
-		$this->render('index',array('model'=>$model));
+		$sort=$_GET['sort'];
+		$this->render('index',array('model'=>$model,'sort'=>$sort));
 	}
 }

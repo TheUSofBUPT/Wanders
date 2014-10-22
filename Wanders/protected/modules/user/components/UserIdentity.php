@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 /**
  * UserIdentity represents the data needed to identity a user.
@@ -15,39 +15,16 @@ class UserIdentity extends CUserIdentity
 	 * against some persistent user identity storage (e.g. database).
 	 * @return boolean whether authentication succeeds.
 	 */
-	 
-	public $userkind;  //用户的类型 
-	 
 	public function authenticate()	//根据需要进行修改的，以后用习惯了之后可以进行高阶的修改
 	{
-		$userinfo;
+		//用sql查询购买者信息信息
+		$userinfo = Buyers::model()->find('username=:name',array(':name'=>$this->username));
 		
-		$con = Yii::app()->db;
-		
-		$sqlcmd = "select * from nb_buyers where username = '".$this->username."'";
-		
-		$res = $con -> createCommand($sqlcmd)-> queryAll();
-		
-		if($res)
+		//购买者里面找不到，在销售者里面找
+		if($userinfo == NULL)
 		{
-			$this->userkind = 0;
-			$userinfo = $res[0];
+			$userinfo = Sellers::model()->find('username=:name',array(':name'=>$this->username));
 		}
-		else
-		{
-					
-			$sqlcmd = "select * from nb_sellers where username = '".$$this->username."'";
-		
-			$res = $con -> createCommand($sqlcmd)-> queryAll();
-			
-			if($res)
-			{
-				$this->userkind = 1;
-				$userinfo = $res[0];
-			}
-			
-		}
-
 		//两者都不存在
 		if($userinfo == NULL)
 		{
@@ -55,14 +32,12 @@ class UserIdentity extends CUserIdentity
 			return false;
 		}
 		//密码不正确
-		if($userinfo['password'] !== md5($this->password))
+		if($userinfo->password !== md5($this->password))
 		{
-
 			$this->errorCode=self::ERROR_PASSWORD_INVALID;
 			return false;
 		}
 		//没有错误，可以登录
-
 		$this->errorCode=self::ERROR_NONE;
 		return true;
 		
