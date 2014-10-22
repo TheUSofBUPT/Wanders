@@ -2,9 +2,9 @@
 class CommentController extends Controller
 {
 
-	public function actionComputerapp()
+	public function actionIndex()
 	{
-		$this->render('error');
+		$this->render('index');
 	}
 }
 ?>
