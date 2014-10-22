@@ -29,8 +29,15 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="<?php echo Yii::app()->createUrl('user/default/index')?>">注册</a></li>
-                <li><a href="<?php echo Yii::app()->createUrl('user/default/login')?>">登录</a></li>
+                <li><a href="<?php echo Yii::app()->createUrl('user/default/index')?>"><?php if(isset(Yii::app()->session['username'])){
+                  echo '欢迎您'.Yii::app()->session['username'].'!';
+                  }?></a></li>
+                <li><a href="<?php echo Yii::app()->createUrl('user/default/index')?>"><?php if(!isset(Yii::app()->session['username'])){
+                  echo '注册';
+                  }?></a></li>
+                <li><a href="<?php echo Yii::app()->createUrl('user/default/login')?>"><?php if(!isset(Yii::app()->session['username'])){
+                  echo '请登录';
+                  }?></a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

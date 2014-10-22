@@ -79,7 +79,9 @@ class DefaultController extends Controller
 			$LoginModel -> attributes = $_POST['userForm'];
 			if($LoginModel -> validate() && $LoginModel->login())
 			{
-				print "登陆成功，即将跳转到主页......";
+				$userKind=$LoginModel -> userKindChoose();
+				Yii::app()->session['username']=$LoginModel['username'];
+				Yii::app()->session['userkind']=$userKind;
 				$this->redirect(Yii::app()->homeUrl);
 			}
 			

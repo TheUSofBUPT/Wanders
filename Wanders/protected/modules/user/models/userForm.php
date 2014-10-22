@@ -212,6 +212,21 @@ class userForm extends CFormModel
 		else
 			return false;
 	}
+	public function userKindChoose()
+	{
+		if($this->_identity===null)
+		{
+			$this->_identity=new UserIdentity($this->username,$this->password);
+			$this->_identity->kindChoose();
+		}
+		if($this->_identity->errorCode===UserIdentity::ERROR_NONE)	//貌似是没有错误的意思 
+		{
+			$userKind=$this->_identity->kindChoose();
+			return $userKind;
+		}
+		else
+			return $userKind;
+	}
 	
 
 }
