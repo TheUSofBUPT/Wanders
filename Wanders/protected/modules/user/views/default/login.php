@@ -32,12 +32,12 @@
 				
 						<div id = "namefield" >
 							<span><label>用户名</label></span>
-							<?php echo $form->textfield($LoginModel,'username',array('class'=>'form-control' , 'id'=>'username' , 'placeholder'=> "请输入用户名" ));?>
+							<?php echo $form->textfield($loginModel,'username',array('class'=>'form-control' , 'id'=>'username' , 'placeholder'=> "请输入用户名" ));?>
 						</div>
 						
 						<div id = "passwordfield" >
 							<label>密码</label>
-							 <?php echo $form->passwordfield($LoginModel,'password',array('class'=>'form-control' , 'id'=>'password' , 'placeholder'=> "请输入密码" ));?>
+							 <?php echo $form->passwordfield($loginModel,'password',array('class'=>'form-control' , 'id'=>'password' , 'placeholder'=> "请输入密码" ));?>
 						</div>
 
 					
@@ -58,7 +58,7 @@
 					<br>
 					
 					<div id = "extrafield" class = "col-md-10">
-						<?php echo $form->checkBox($LoginModel,'rememberMe');?>&nbsp;记住我
+						<?php echo $form->checkBox($loginModel,'rememberMe');?>&nbsp;记住我
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href = "#">忘记密码？</a>
 					</div>

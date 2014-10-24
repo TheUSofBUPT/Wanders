@@ -36,14 +36,20 @@ class DefaultController extends Controller
         if(isset($_POST['userForm']))
 		{
 			$model->attributes=$_POST['userForm'];
-			if($model->validate() && $model->wikerRegister())
+			Yii::app()->session['email']=$model['email'];
+			if($model->validate())
 			{
-				$model->login();
-				echo "注册成功，正在跳转到主页......";
-				$this->redirect(Yii::app()->homeUrl);
-                
+				if($model->emailAuthenticate())
+				{
+					if($model->wikerRegister())
+			   		{
+						$model->login();
+						echo "注册成功，正在跳转到主页......";
+						$this->redirect(Yii::app()->homeUrl);
+                	}
+				}
 			}
-		
+			
 		}
     	$this->render('wiker',array('model'=>$model));
     }
@@ -55,13 +61,20 @@ class DefaultController extends Controller
         if(isset($_POST['userForm']))
 		{
 			$model->attributes=$_POST['userForm'];
-			if($model->validate() && $model->hirerRegister())
+			Yii::app()->session['email']=$model['email'];
+			if($model->validate())
 			{
-				$model->login();
-				echo "注册成功，正在跳转到主页......";
-				$this->redirect(Yii::app()->homeUrl);
-                
+				if($model->emailAuthenticate())
+				{
+					if($model->hirerRegister())
+					{
+						$model->login();
+						echo "注册成功，正在跳转到主页......";
+						$this->redirect(Yii::app()->homeUrl);
+               		}
+				}
 			}
+			
 		
 		}
     	$this->render('hirer',array('model'=>$model));
@@ -72,24 +85,28 @@ class DefaultController extends Controller
 	public function actionLogin()
 	{
 		$this->layout = "application.modules.login.views.layouts.main";
-		$LoginModel = new userForm('login');								//果然，在更换了场景之后就不同了
+		$loginModel = new userForm('login');								//果然，在更换了场景之后就不同了
 		
 		if(isset($_POST['userForm']))
 		{
-			$LoginModel -> attributes = $_POST['userForm'];
-			if($LoginModel -> validate() && $LoginModel->login())
+			$loginModel -> attributes = $_POST['userForm'];
+			if($loginModel -> validate() && $loginModel->login())
 			{
-				$userKind=$LoginModel -> userKindChoose();
-				Yii::app()->session['username']=$LoginModel['username'];
+				$userKind=$loginModel -> userKindChoose();
+				Yii::app()->session['username']=$loginModel['username'];
 				Yii::app()->session['userkind']=$userKind;
 				$this->redirect(Yii::app()->homeUrl);
 			}
 			
 		}
 		
-		$this -> render("login",array('LoginModel' => $LoginModel));
+		$this -> render("login",array('loginModel' => $loginModel));
 	}
-	
+	public function actionlogout()
+	{
+		Yii::app()->user->logout();
+		$this->redirect(Yii::app()->homeUrl);
+	}
 	
 	//出错了
 	public function actionError()

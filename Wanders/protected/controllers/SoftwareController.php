@@ -34,9 +34,8 @@ class SoftwareController extends Controller
 			$model->attributes=$_POST['RequestForm'];
 			if($model->validate())
 			{
-					$connection=Yii::app()->db;
 					$sql="insert into nb_software(title,kind,starttime,deadline,content) values('".$model->title."','".$model->kind."','".$model->starttime."','".$model->deadline."','".$model->content."')";
-                	$command=$connection->createCommand($sql);
+                	$command=Yii::app()->db->createCommand($sql);
 					$rowCount=$command->execute();
 					if($rowCount>0)
 					{
@@ -44,9 +43,8 @@ class SoftwareController extends Controller
 					}
 			}
 		}
-		$con=Yii::app()->db;
 		$sql="select title,id,regtime from nb_software;";
-		$result=$con->createCommand($sql)->query();
+		$result=Yii::app()->db->createCommand($sql)->query();
 		//echo $result;
 		//echo $result;
 		while($port=$result->read())

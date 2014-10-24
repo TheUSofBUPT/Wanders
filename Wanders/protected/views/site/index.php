@@ -29,8 +29,11 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="<?php echo Yii::app()->createUrl('user/default/index')?>"><?php if(isset(Yii::app()->session['username'])){
+                <li><a href="<?php echo Yii::app()->createUrl('site')?>"><?php if(isset(Yii::app()->session['username'])){
                   echo '欢迎您'.Yii::app()->session['username'].'!';
+                  }?></a></li>
+                <li><a href="<?php echo Yii::app()->createUrl('user/default/logout')?>"><?php if(isset(Yii::app()->session['username'])){
+                  echo '注销';
                   }?></a></li>
                 <li><a href="<?php echo Yii::app()->createUrl('user/default/index')?>"><?php if(!isset(Yii::app()->session['username'])){
                   echo '注册';

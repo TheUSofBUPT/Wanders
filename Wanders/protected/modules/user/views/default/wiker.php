@@ -56,9 +56,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'number',array('class'=>'field-message')); ?>
-		<?php echo $form->textField($model,'number',array('placeholder'=>'','class'=>'form-control')); ?>
-		<?php echo $form->error($model,'number',array('class'=>'error-message')); ?>
+		<?php echo $form->labelEx($model,'stunumber',array('class'=>'field-message')); ?>
+		<?php echo $form->textField($model,'stunumber',array('placeholder'=>'','class'=>'form-control')); ?>
+		<?php echo $form->error($model,'stunumber',array('class'=>'error-message')); ?>
 	</div>
 
 	<?php if(CCaptcha::checkRequirements()): ?>

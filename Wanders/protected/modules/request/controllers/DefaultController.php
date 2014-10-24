@@ -3,6 +3,13 @@
 class DefaultController extends Controller
 {
 	public $layout='application.modules.request.views.layouts.main';
+	public function filters()
+	{
+		if(!isset(Yii::app()->session['username']))
+		{
+             $this->redirect(Yii::app()->createUrl('user/default/login'));
+		}
+	}
 	public function actions()
 	{
 		return array(
